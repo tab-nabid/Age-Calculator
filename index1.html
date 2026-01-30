@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>Age Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0f766e, #115e59);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+            color: #0f766e;
+        }
+        label {
+            display: block;
+            margin: 15px 0 8px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #0f766e;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #115e59;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        footer {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Age Calculator</h1>
+
+    <label for="dob">Enter Your Birth Date</label>
+    <input type="date" id="dob">
+
+    <button onclick="calculateAge()">Calculate Your Age</button>
+
+    <div class="result" id="result"></div>
+
+    <footer>
+        Developed by Nabid
+    </footer>
+</div>
+
+<script>
+function calculateAge() {
+    const dob = document.getElementById("dob").value;
+    const result = document.getElementById("result");
+
+    if (!dob) {
+        result.innerHTML = "⚠️Enter Your Birth Date";
+        return;
+    }
+
+    const birthDate = new Date(dob);
+    const today = new Date();
+
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
+
+    if (days < 0) {
+        months--;
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += lastMonth.getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    result.innerHTML = `
+        আপনার বয়স হলো <br>
+        <strong>${years}</strong> বছর 
+        <strong>${months}</strong> মাস 
+        <strong>${days}</strong> দিন
+    `;
+}
+</script>
+
+</body>
+</html>
